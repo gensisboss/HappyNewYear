@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>2025</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="theme-color" content="#000000"/>
+	<link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="count-down">
+                <div class="title">
+                    <img  src=".\images\2025.png">
+                </div>
+                <div class="content">
+                    <div class="time">
+                        <div class="timeWrapper">
+                            0
+                        </div>
+                        <div class="timeWrapper">
+                            0
+                        </div>
+                        <div class="timeWrapper">
+                            0
+                        </div>
+                        <div class="timeWrapper">
+                            0
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="stage-container">
+				<div class="canvas-container">
+					<canvas id="trails-canvas"> </canvas>
+					<canvas id="main-canvas"> </canvas>
+				</div>
+			</div>
+           
+        </div>
+    </main>
+    <script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+    <script src="./js/fscreen.js"></script>
+    <script src="./js/Stage.js"></script>
+    <script src="./js/MyMath.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        new Snowflakes();
+        function updateCountdown() {
+            const date = new Date();
+            const timeWrappers = document.querySelectorAll(".timeWrapper");
+            let targetDate = new Date('2025-01-01T00:00:00');
+            let timeDifference = targetDate - date;
+
+            let monthLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+            let dayLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+            let hourLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minuteLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            let secLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+
+
+			if(timeDifference > 0){	
+				timeWrappers[0].innerHTML = `${dayLeft} 天`;
+				timeWrappers[1].innerHTML = `${hourLeft} 时`;
+				timeWrappers[2].innerHTML = `${minuteLeft} 分`;
+				timeWrappers[3].innerHTML = `${secLeft} 秒`;
+			}else{
+                clearInterval(timer)
+                startFireWork()
+			}
+            
+        }
+
+        updateCountdown();
+        var timer = setInterval(updateCountdown, 1000);
+    </script>
+   
+</body>
+
+</html>
